@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Бронирование услуг
+{% endblock %}
+
+{% block content %}
+    <h1 style="color: white">Бронирование услуг</h1>
+        {% csrf_token %}
+
+        <div class="col-sm-8 mb-3 mb-sm-0">
+
+                <form style="color: white" method="post" action="{% url 'service_booking' %}">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                             {{ form.service.label_tag }} {{ form.service }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.guest.label_tag }} {{ form.guest }}
+                        </div>
+                    </div>
+                    <br>
+                            {{ form.service_date.label_tag }} {{ form.service_date }}
+                            {{ form.service_time.label_tag }} {{ form.service_time }}
+
+                </form>
+
+        </div>
+    <br>
+        <button type="submit" class="btn btn-success">Добавить</button>
+
+
+    <div class="col-sm-8 mb-3 mb-sm-0">
+    <div style=" background-color: rgba(255, 255, 255, 0.8);" class="card card-body">
+        <form method="get">
+            <h4>Поиск по категориям</h4>
+            <div style="display:">
+                <div style="flex: 2;">
+                    {{ filter.form.service_name.label_tag }} {{ filter.form.service_name }}
+                    {{ filter.form.guest_name.label_tag }} {{ filter.form.guest_name }}
+                </div>
+                <br>
+                <div style="flex: 4;">
+                    {{ filter.form.service_date.label_tag }} {{ filter.form.service_date }}
+                    {{ filter.form.service_time.label_tag }} {{ filter.form.service_time }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Поиск</button>
+        </form>
+    </div>
+    </div>
+    <br>
+
+    {% load render_table from django_tables2 %}
+    {% render_table table %}
+{% endblock %}
